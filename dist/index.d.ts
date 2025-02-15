@@ -14,6 +14,8 @@ export type WaterFallProps<T> = {
     list: T[];
     columns?: number;
     gap?: number;
+    scrollSpeedFactor?: number;
+    style?: React.CSSProperties;
     cardClass?: string;
     reachBottom?: () => void;
     calcCardHeight?: (cardWidth: number, imageHeight: number, item: T) => Promise<number>;

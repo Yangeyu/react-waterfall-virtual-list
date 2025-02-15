@@ -49,7 +49,7 @@ const usePageSize = () => {
 };
 
 function VirtualWaterFall(props) {
-    const { columns = 5, gap = 10, list } = props;
+    const { columns = 5, gap = 10, scrollSpeedFactor = 0.3, list, } = props;
     const containerRef = useRef();
     const [listWithPos, setListWithPos] = useState([]);
     const pageSize = usePageSize();
@@ -123,7 +123,6 @@ function VirtualWaterFall(props) {
             var _a;
             ev.preventDefault();
             // 获取滚动距离（可以根据需要调整缩放比例）
-            const scrollSpeedFactor = 0.2; // 数值越小，滚动越慢
             const scrollDelta = ev.deltaY * scrollSpeedFactor;
             // 使用 scrollBy 方法实现自定义滚动
             (_a = containerRef.current) === null || _a === void 0 ? void 0 : _a.scrollBy({
@@ -141,9 +140,11 @@ function VirtualWaterFall(props) {
             (_a = containerRef.current) === null || _a === void 0 ? void 0 : _a.removeEventListener("wheel", handleScroll);
         };
     }, []);
-    return (jsxs("div", { ref: containerRef, className: "w-full h-full overflow-x-hidden overflow-y-scroll", children: [jsx("div", { className: "w-full relative", style: {
+    return (jsxs("div", { ref: containerRef, style: Object.assign({ position: "relative", width: '100%', height: '100%', overflowX: 'hidden', overflowY: 'scroll' }, props.style), children: [jsx("div", { style: {
+                    width: '100%',
                     height: Math.max(...columnsHeight.current)
-                }, children: renderList.map((item) => (jsx("div", { className: `absolute ${props.cardClass}`, style: {
+                }, children: renderList.map((item) => (jsx("div", { className: `${props.cardClass}`, style: {
+                        position: "absolute",
                         width: `${item.style.width}px`,
                         height: `${item.style.height}px`,
                         transform: `translate3d(${item.style.x}px, ${item.style.y}px, 0)`,

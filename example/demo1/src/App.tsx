@@ -5,8 +5,9 @@ import { dataSource } from './index.data.ts'
 function App() {
 
   return (
-    <div style={{ width: '60vw', height: '80vh', }} >
+    <div >
       <VirtualWaterFall
+        style={{ width: '60vw', height: '80vh'}}
         list={dataSource}
         calcCardHeight={(_cardWidth, imageHeight, _item) => {
           return Promise.resolve(imageHeight)

@@ -22,6 +22,7 @@ export type WaterFallProps<T> = {
   gap?: number
   // 设置滚动速度
   scrollSpeedFactor?: number
+  style?: React.CSSProperties
   cardClass?: string
   // 滚动到底部触发回调
   reachBottom?: () => void
@@ -155,6 +156,7 @@ export function VirtualWaterFall<T extends BaseInfo>(props: WaterFallProps<T>) {
         height: '100%',
         overflowX: 'hidden',
         overflowY: 'scroll',
+        ...props.style
       }}
     >
       <div
