@@ -1,6 +1,5 @@
 {
-  "name": "demo1",
-  "private": true,
+  "name": "@vascent/react-waterfall-virtual-list/demo1",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

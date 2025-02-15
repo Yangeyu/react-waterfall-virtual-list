@@ -1,8 +1,12 @@
 {
-  "name": "react-waterfall-virtual-list",
+  "name": "@vascent/react-waterfall-virtual-list",
   "version": "0.0.1",
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "description": "A React component for virtualized waterfall list",
+  "repository": "https://github.com/Yangeyu/react-waterfall-virtual-list",
   "main": "src/index.tsx",
   "scripts": {
     "build": "rollup -c",
