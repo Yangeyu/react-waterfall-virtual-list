@@ -14,7 +14,7 @@ const usePageSize = () => {
     return () => {
       window.removeEventListener("resize", onResize)
     }
-  })
+  }, [])
 
   return size
 }

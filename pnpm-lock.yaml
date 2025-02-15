@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@vascent/react-waterfall-virtual-list':
+        specifier: ^0.0.1
+        version: 0.0.1
     devDependencies:
       '@rollup/plugin-typescript':
         specifier: ^12.1.2
@@ -155,6 +159,9 @@ packages:
   '@types/react@18.3.18':
     resolution: {integrity: sha512-t4yC+vtgnkYjNSKlFx1jkAhH8LgTo2N/7Qvi83kdEaUtMDiwpbLAktKDaAMlRcJ5eSxZkH74eEGt1ky31d7kfQ==}
 
+  '@vascent/react-waterfall-virtual-list@0.0.1':
+    resolution: {integrity: sha512-vVtGZ6S3Qn88ruO0WAePAtrqoj5KVSS5zlMUu0B5935MHbkdVseXghMrajFbXOZG04WO4P0diqgQecky3lgwtA==}
+
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
 
@@ -301,6 +308,8 @@ snapshots:
     dependencies:
       '@types/prop-types': 15.7.14
       csstype: 3.1.3
+
+  '@vascent/react-waterfall-virtual-list@0.0.1': {}
 
   csstype@3.1.3: {}
 
