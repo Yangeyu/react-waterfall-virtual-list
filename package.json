@@ -1,14 +1,17 @@
 {
   "name": "@vascent/react-waterfall-virtual-list",
-  "version": "0.0.4",
+  "author": "yang",
+  "version": "0.0.7",
   "publishConfig": {
     "access": "public"
   },
   "type": "module",
   "description": "A React component for virtualized waterfall list",
   "repository": "https://github.com/Yangeyu/react-waterfall-virtual-list",
-  "main": "src/index.tsx",
+  "main": "dist/index.esm.jsx",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "prebuild": "rimraf dist",
     "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,12 +20,12 @@
     "waterfall",
     "virtual-list"
   ],
-  "author": "yang",
   "license": "MIT",
   "devDependencies": {
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/react": "^18.3.18",
     "react": "^18.3.1",
+    "rimraf": "^6.0.1",
     "rollup": "^4.34.7",
     "tslib": "^2.8.1",
     "typescript": "^5.7.3"

@@ -1,4 +1,4 @@
-import usePageSize from "./usePageSize"
+import usePageSize from "./hooks/usePageSize"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 export type PositionType = {
