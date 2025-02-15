@@ -16,12 +16,20 @@ export type BaseInfo = {
 }
 export type WaterFallProps<T> = {
   list: T[]
+  // 设置列数
   columns?: number
+  // 设置间距(px)
   gap?: number
+  // 设置滚动速度
+  scrollSpeedFactor?: number
   cardClass?: string
+  // 滚动到底部触发回调
   reachBottom?: () => void
+  // 自定义计算卡片高度
   calcCardHeight?: (cardWidth: number, imageHeight: number, item: T) => Promise<number>
+  // 自定义 卡片Item 组件
   renderItem?: (props: { item: T & { style: PositionType } }) => JSX.Element
+  // 自定义 loading 组件
   renderLoading?: () => JSX.Element | null
 }
 
@@ -29,7 +37,8 @@ export function VirtualWaterFall<T extends BaseInfo>(props: WaterFallProps<T>) {
   const {
     columns = 5,
     gap = 10,
-    list
+    scrollSpeedFactor = 0.3,
+    list,
   } = props
 
   const containerRef = useRef<HTMLDivElement>()
@@ -116,7 +125,6 @@ export function VirtualWaterFall<T extends BaseInfo>(props: WaterFallProps<T>) {
     const handleScroll = ((ev: WheelEvent) => {
       ev.preventDefault()
       // 获取滚动距离（可以根据需要调整缩放比例）
-      const scrollSpeedFactor = 0.2; // 数值越小，滚动越慢
       const scrollDelta = ev.deltaY * scrollSpeedFactor;
 
       // 使用 scrollBy 方法实现自定义滚动
@@ -141,20 +149,27 @@ export function VirtualWaterFall<T extends BaseInfo>(props: WaterFallProps<T>) {
   return (
     <div
       ref={containerRef as any}
-      className="w-full h-full overflow-x-hidden overflow-y-scroll"
+      style={{
+        position: "relative",
+        width: '100%',
+        height: '100%',
+        overflowX: 'hidden',
+        overflowY: 'scroll',
+      }}
     >
       <div
-        className="w-full relative"
         style={{
+          width: '100%',
           height: Math.max(...columnsHeight.current)
         }}
       >
         {
           renderList.map((item) => (
             <div
-              className={`absolute ${props.cardClass}`}
+              className={`${props.cardClass}`}
               key={`${item.id}`}
               style={{
+                position: "absolute",
                 width: `${item.style.width}px`,
                 height: `${item.style.height}px`,
                 transform: `translate3d(${item.style.x}px, ${item.style.y}px, 0)`,

@@ -61,6 +61,7 @@ const App = () => {
 | list | `T[]` | 是 | - | 数据源数组，元素需继承 BaseInfo |
 | columns | number | 否 | 5 | 瀑布流列数 |
 | gap | number | 否 | 10 | 卡片间距（单位：px） |
+| scrollSpeedFactor | number | 否 | 0.3 | 滚动速度因子，影响滚动过程中的白屏，默认为 0.3，值越大滚动越快 |
 | cardClass | string | 否 | - | 卡片容器类名 |
 | reachBottom | () => void | 否 | - | 滚动到底部回调函数 |
 | calcCardHeight | `(cardWidth: number, imageHeight: number, item: T) => Promise<number>` | 否 | - | 异步计算卡片高度函数 |
@@ -94,8 +95,7 @@ type PositionType = {
 ## 工作原理
 1. **布局计算**：根据容器宽度和列数计算每列宽度
 2. **位置分配**：始终将新元素添加到当前高度最小的列
-3. **虚拟渲染**：通过 `IntersectionObserver` 原理仅渲染可视区域内的元素
-4. **滚动优化**：自定义滚动处理实现平滑滚动体验
+3. **滚动优化**：自定义滚动处理实现平滑滚动体验
 
 ## 开发建议
 ```tsx

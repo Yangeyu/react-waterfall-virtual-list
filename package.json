@@ -1,7 +1,7 @@
 {
   "name": "@vascent/react-waterfall-virtual-list",
   "author": "yang",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "publishConfig": {
     "access": "public"
   },
