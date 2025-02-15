@@ -1,0 +1,26 @@
+{
+  "name": "react-waterfall-virtual-list",
+  "version": "0.0.1",
+  "type": "module",
+  "description": "A React component for virtualized waterfall list",
+  "main": "src/index.tsx",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react",
+    "waterfall",
+    "virtual-list"
+  ],
+  "author": "yang",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/react": "^18.3.18",
+    "react": "^18.3.1",
+    "rollup": "^4.34.7",
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.3"
+  }
+}
