@@ -61,56 +61,47 @@ export function VirtualWaterFall<T extends BaseInfo>(props: WaterFallProps<T>) {
     })
   }, [listWithPos, top])
 
+  // 计算最小列的索引和高度
   const calcMinColumns = () => {
     const minHeight = Math.min(...columnsHeight.current)
     const idx = columnsHeight.current.indexOf(minHeight)
     return [idx, minHeight]
   }
 
+  // 计算每个项目的位置
   const calcItemsPos = async (cardWidth: number) => {
-    const result = list.map(async (item, idx) => {
+    if (!list?.length) return []
+
+    // 初始化列高数组，每列的初始高度为0
+    columnsHeight.current = Array.from({ length: columns }, () => 0)
+    const result: (T & { style: PositionType })[] = []
+    for (const item of list) {
       const imageHeight = item.height * cardWidth / item?.width
       const cardHeight = props.calcCardHeight
         ? await props.calcCardHeight(cardWidth, imageHeight, item)
         : imageHeight
-      if (idx < columns) {
-        columnsHeight.current[idx] = cardHeight + gap
-        return {
-          ...item,
-          style: {
-            x: (cardWidth + gap) * idx,
-            y: 0,
-            width: cardWidth,
-            height: cardHeight,
-            imageHeight
-          }
-        }
-      }
-
+      // 找到最小列的索引和高度
       const [minColumnIdx, minHeight] = calcMinColumns()
-      columnsHeight.current[minColumnIdx] += cardHeight + gap
 
-      return {
-        ...item,
-        style: {
-          x: (cardWidth + gap) * minColumnIdx,
-          y: minHeight,
-          width: cardWidth,
-          height: cardHeight,
-          imageHeight
-        }
+      // 更新最小列的高度
+      columnsHeight.current[minColumnIdx] += cardHeight + gap
+      const style = {
+        x: (cardWidth + gap) * minColumnIdx,
+        y: minHeight,
+        width: cardWidth,
+        height: cardHeight,
+        imageHeight
       }
-    })
-    const res = await Promise.all(result)
-    return res
+      result.push({ ...item, style })
+    }
+    
+    return result
   }
 
   useEffect(() => {
     const containerWidth = containerRef.current?.clientWidth
     const cardWidth = (containerWidth! - gap * (columns - 1)) / columns
-    calcItemsPos(cardWidth).then((res) => {
-      setListWithPos(res)
-    })
+    calcItemsPos(cardWidth).then((res) => { setListWithPos(res) })
   },
     [list, pageSize]
   )
@@ -182,7 +173,7 @@ export function VirtualWaterFall<T extends BaseInfo>(props: WaterFallProps<T>) {
           ))
         }
       </div>
-      { props.renderLoading && <props.renderLoading /> }
+      {props.renderLoading && <props.renderLoading />}
     </div>
   )
 }

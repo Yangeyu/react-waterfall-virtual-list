@@ -67,47 +67,44 @@ function VirtualWaterFall(props) {
                 item.style.y < top + scrollState.viewHeight;
         });
     }, [listWithPos, top]);
+    // 计算最小列的索引和高度
     const calcMinColumns = () => {
         const minHeight = Math.min(...columnsHeight.current);
         const idx = columnsHeight.current.indexOf(minHeight);
         return [idx, minHeight];
     };
+    // 计算每个项目的位置
     const calcItemsPos = (cardWidth) => __awaiter(this, void 0, void 0, function* () {
-        const result = list.map((item, idx) => __awaiter(this, void 0, void 0, function* () {
+        if (!(list === null || list === void 0 ? void 0 : list.length))
+            return [];
+        // 初始化列高数组，每列的初始高度为0
+        columnsHeight.current = Array.from({ length: columns }, () => 0);
+        const result = [];
+        for (const item of list) {
             const imageHeight = item.height * cardWidth / (item === null || item === void 0 ? void 0 : item.width);
             const cardHeight = props.calcCardHeight
                 ? yield props.calcCardHeight(cardWidth, imageHeight, item)
                 : imageHeight;
-            if (idx < columns) {
-                columnsHeight.current[idx] = cardHeight + gap;
-                return Object.assign(Object.assign({}, item), { style: {
-                        x: (cardWidth + gap) * idx,
-                        y: 0,
-                        width: cardWidth,
-                        height: cardHeight,
-                        imageHeight
-                    } });
-            }
+            // 找到最小列的索引和高度
             const [minColumnIdx, minHeight] = calcMinColumns();
+            // 更新最小列的高度
             columnsHeight.current[minColumnIdx] += cardHeight + gap;
-            return Object.assign(Object.assign({}, item), { style: {
-                    x: (cardWidth + gap) * minColumnIdx,
-                    y: minHeight,
-                    width: cardWidth,
-                    height: cardHeight,
-                    imageHeight
-                } });
-        }));
-        const res = yield Promise.all(result);
-        return res;
+            const style = {
+                x: (cardWidth + gap) * minColumnIdx,
+                y: minHeight,
+                width: cardWidth,
+                height: cardHeight,
+                imageHeight
+            };
+            result.push(Object.assign(Object.assign({}, item), { style }));
+        }
+        return result;
     });
     useEffect(() => {
         var _a;
         const containerWidth = (_a = containerRef.current) === null || _a === void 0 ? void 0 : _a.clientWidth;
         const cardWidth = (containerWidth - gap * (columns - 1)) / columns;
-        calcItemsPos(cardWidth).then((res) => {
-            setListWithPos(res);
-        });
+        calcItemsPos(cardWidth).then((res) => { setListWithPos(res); });
     }, [list, pageSize]);
     useEffect(() => {
         var _a;
